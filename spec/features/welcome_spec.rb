@@ -3,7 +3,6 @@ require "rails_helper"
 describe "As a visitor" do
   describe "When i visit the home page" do
     it "I see welcome text and a shor description of the site" do
-
       visit root_path
 
       expect(page).to have_content("Welcome To Viewing Party!")
