@@ -9,7 +9,17 @@
   </head>
 
   <body>
+    <nav>
+      <% if current_user %>
+        <%= link_to "Log Out", "/logout", method: :delete%>
+      <% end %>
+    </nav>
     <main>
+      <% flash.each do |name, msg| %>
+      <div class= "<%=name%>-flash">
+        <p><%= msg %></p>
+      </div>
+    <% end %>
       <%= yield %>
     </main>
     <footer>
