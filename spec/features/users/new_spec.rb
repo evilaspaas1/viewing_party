@@ -16,3 +16,5 @@ RSpec.describe 'As a visitor' do
     end
   end
 end
+
+# TESTING CO-AUTHORED COMMITS
