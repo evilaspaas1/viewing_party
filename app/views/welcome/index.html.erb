@@ -1,3 +1,16 @@
+<%= content_tag :h1, "Welcome To Viewing Party!" %>
+<%= content_tag :h3, "This website allows you to create a 'viewing party' with your friends to watch movies together online from the comfort of your own homes. Especially during these hard time during a pandemic when it isn't safe to be in the same room." %>
 
-<%= content_tag :h1, "Welcome" %>
+
+<%= form_tag "/login" do %>
+
+  <%= label_tag :email %><br>
+  <%= text_field_tag :email %><br>
+
+  <%= label_tag :password %><br>
+  <%= password_field_tag :password %><br>
+
+  <%= submit_tag "Log In" %>
+<% end %>
+
 <%= link_to "New to Viewing Party? Register Here", "/register" %>
