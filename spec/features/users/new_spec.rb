@@ -27,6 +27,7 @@ RSpec.describe 'As a visitor' do
       click_button "Register"
 
       expect(current_path).to eq(dashboard_index_path)
+      expect(page).to have_content("You are now registered and logged in.")
       expect(page).to have_content("Welcome, Brian")
     end
   end
