@@ -24,7 +24,7 @@ RSpec.describe 'As a visitor' do
       fill_in :name, with: "Brian"
       fill_in :email, with: "brian@gmail.com"
       fill_in :password, with: "password"
-      fill_in :confirm_password, with: "password"
+      fill_in :password_confirmation, with: "password"
 
       click_button "Register"
 
@@ -41,7 +41,7 @@ RSpec.describe 'As a visitor' do
       fill_in :name, with: "Tim"
       fill_in :email, with: "tim@gmail.com"
       fill_in :password, with: "password"
-      fill_in :confirm_password, with: "password"
+      fill_in :password_confirmation, with: "password"
 
       click_button "Register"
 
@@ -54,11 +54,11 @@ RSpec.describe 'As a visitor' do
       fill_in :name, with: "Brian"
       fill_in :email, with: "brian@gmail.com"
       fill_in :password, with: "password"
-      fill_in :confirm_password, with: "blastword"
+      fill_in :password_confirmation, with: "blastword"
 
       click_button "Register"
-
-      expect(page).to have_content("Passwords don't match")
+save_and_open_page
+      expect(page).to have_content("Password confirmation doesn't match Password")
       expect(current_path).to eq("/register")
     end
   end
