@@ -30,5 +30,19 @@ RSpec.describe 'As a visitor' do
       expect(page).to have_content("You are now registered and logged in.")
       expect(page).to have_content("Welcome, Brian")
     end
+
+    it "doesn't create a new user if email isn't unique" do
+      user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
+
+      fill_in :name, with: "Tim"
+      fill_in :email, with: "tim@gmail.com"
+      fill_in :password, with: "password"
+      fill_in :confirm_password, with: "password"
+
+      click_button "Register"
+
+      expect(page).to have_content("UR NOT A SNOWFLAKE")
+      expect(current_path).to eq("/register")
+    end
   end
 end
