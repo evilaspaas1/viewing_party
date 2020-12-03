@@ -14,4 +14,6 @@ Rails.application.routes.draw do
 
   resources :discover, only: [:index]
 
+  resources :movies, only: [:index]
+
 end
