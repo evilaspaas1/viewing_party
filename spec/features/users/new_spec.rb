@@ -57,7 +57,7 @@ RSpec.describe 'As a visitor' do
       fill_in :password_confirmation, with: "blastword"
 
       click_button "Register"
-save_and_open_page
+
       expect(page).to have_content("Password confirmation doesn't match Password")
       expect(current_path).to eq("/register")
     end
