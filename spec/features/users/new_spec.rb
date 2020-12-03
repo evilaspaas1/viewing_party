@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'As a visitor' do
   describe 'When I click the Register link on the Welcome Page' do
     before :each do
+      User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
+
       visit root_path
 
       click_link "New to Viewing Party? Register Here"
@@ -26,7 +28,7 @@ RSpec.describe 'As a visitor' do
 
       click_button "Register"
 
-      user = User.first
+      user = User.last
 
       expect(user.name).to eq("Brian")
       expect(current_path).to eq(dashboard_index_path)
@@ -35,7 +37,6 @@ RSpec.describe 'As a visitor' do
     end
 
     it "doesn't create a new user if email isn't unique" do
-      user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
 
       fill_in :name, with: "Tim"
       fill_in :email, with: "tim@gmail.com"
@@ -45,6 +46,19 @@ RSpec.describe 'As a visitor' do
       click_button "Register"
 
       expect(page).to have_content("Email has already been taken")
+      expect(current_path).to eq("/register")
+    end
+
+    it "doesn't create a new user if passwords don't match" do
+
+      fill_in :name, with: "Brian"
+      fill_in :email, with: "brian@gmail.com"
+      fill_in :password, with: "password"
+      fill_in :confirm_password, with: "blastword"
+
+      click_button "Register"
+
+      expect(page).to have_content("Passwords don't match")
       expect(current_path).to eq("/register")
     end
   end
