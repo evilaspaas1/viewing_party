@@ -41,7 +41,7 @@ RSpec.describe 'As a visitor' do
 
       click_button "Register"
 
-      expect(page).to have_content("UR NOT A SNOWFLAKE")
+      expect(page).to have_content("Email has already been taken")
       expect(current_path).to eq("/register")
     end
   end
