@@ -28,9 +28,6 @@ RSpec.describe 'As a visitor' do
 
       click_button "Register"
 
-      user = User.last
-
-      expect(user.name).to eq("Brian")
       expect(current_path).to eq(dashboard_index_path)
       expect(page).to have_content("You are now registered and logged in.")
       expect(page).to have_content("Welcome, Brian")
