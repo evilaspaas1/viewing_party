@@ -29,6 +29,7 @@ describe "As a visitor" do
 
       expect(page).to have_link("New to Viewing Party? Register Here")
     end
+
     it "And fail to log in is see a flash message" do
       user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
       visit root_path
@@ -44,6 +45,7 @@ describe "As a visitor" do
       expect(current_path).to eq("/")
       expect(page).to have_content("Your log in credentials are bad.")
     end
+
     it "And try to visit a user dashboard without logging in I see a 404 error" do
       visit dashboard_index_path
 
