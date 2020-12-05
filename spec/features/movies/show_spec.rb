@@ -35,7 +35,7 @@ describe "As a user on the movies show page" do
   end
 
   it "I see information about this movie" do
-    save_and_open_page
+  
     expect(page).to have_content("The Shawshank Redemption")
 
     within ".movie_details" do
