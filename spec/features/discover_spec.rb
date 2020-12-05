@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'as a user on the discover page' do
+describe 'as a registered user on the discover page' do
   before :each do
     visit '/discover'
   end

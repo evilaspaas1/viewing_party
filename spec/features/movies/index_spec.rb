@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'as a user on the movies index page' do
+describe 'as a registered user on the movies index page' do
   before :each do
     @user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
     visit root_path

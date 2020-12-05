@@ -30,7 +30,7 @@ describe "As a visitor" do
       expect(page).to have_link("New to Viewing Party? Register Here")
     end
 
-    it "And fail to log in is see a flash message" do
+    it "And fail to log in I see a flash message" do
       user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
       visit root_path
 
