@@ -10,8 +10,10 @@ describe 'as a user on the discover page' do
   end
 
   it 'when the button is clicked it takes us to the movies page' do
-    click_button("Find Top Rated Movies")
-    expect(current_path).to eq("/movies")
+    VCR.use_cassette('top_movies') do
+      click_button("Find Top Rated Movies")
+      expect(current_path).to eq("/movies")
+    end
   end
 
   it 'has a search field to search by movie title and button to initiate' do
@@ -20,9 +22,11 @@ describe 'as a user on the discover page' do
   end
 
   it 'when the button to find movies is clicked it takes us to the movies page' do
-    fill_in :search, with: "Titanic"
-    click_button("Search By Title")
-    expect(current_path).to eq("/movies")
+    VCR.use_cassette('movies_by_search') do
+      fill_in :search, with: "Phoenix"
+      click_button("Search By Title")
+      expect(current_path).to eq("/movies")
+    end
   end
 
   it 'returns an error if the field is not filled out' do
@@ -33,14 +37,18 @@ describe 'as a user on the discover page' do
   end
 
   it 'can search for movies in any case' do
-    fill_in :search, with: "tiTanIc"
-    click_button("Search By Title")
-    expect(current_path).to eq("/movies")
+    VCR.use_cassette('case_sensitive_search') do
+      fill_in :search, with: "pHoEnix"
+      click_button("Search By Title")
+      expect(current_path).to eq("/movies")
+    end
   end
 
   it 'can search for partial keyword/movie title' do
-    fill_in :search, with: "phoe"
-    click_button("Search By Title")
-    expect(current_path).to eq("/movies")
+    VCR.use_cassette('partial_results') do
+      fill_in :search, with: "Pho"
+      click_button("Search By Title")
+      expect(current_path).to eq("/movies")
+    end
   end
 end
