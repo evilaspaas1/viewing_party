@@ -1,2 +1,12 @@
 
-<%= content_tag :h1, "Welcome, #{current_user.name}"  %>
+<div class="header">
+<%= content_tag :h1, "Welcome, #{current_user.name}!"  %>
+</div>
+
+<%= button_to "Discover Movies", "/discover", method: :get %>
+
+<section class="friends">
+</section>
+
+<section class="viewing_parties">
+</section>
