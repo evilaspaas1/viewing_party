@@ -1,2 +1,18 @@
-<div class="movie">
-</div>
+<%= content_tag :h1, "Discover Your Next Watch"  %>
+<%= button_to "Find Top Rated Movies", "/movies", method: :get %>
+
+<%= form_tag "/movies", method: :get %>
+  <%= search_field_tag(:search, params[:search]) %>
+<%= submit_tag ("Search By Title") %>
+
+
+  <% @movies.each do |movie| %>
+    <div class="movie">
+      <div class="title">
+       <%= link_to "#{movie[:title]}" %>
+       </div>
+       <div class="vote_average">
+         <p>Vote Average: <%= movie[:vote_average] %></p>
+       </div>
+    </div>
+  <% end %>
