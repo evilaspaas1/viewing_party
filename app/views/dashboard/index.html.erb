@@ -6,6 +6,18 @@
 <%= button_to "Discover Movies", "/discover", method: :get %>
 
 <section class="friends">
+  <% if @current_user.friends.empty? %>
+    <p> You Currently Have No Friends </p>
+  <% else %>
+    <% @current_user.friends.each do |friend| %>
+      <p><%= friend.name %></p>
+    <% end %>
+  <% end %>
+
+  <%= form_tag "/friendships", method: :post %>
+    <%= label_tag :email %>
+    <%= text_field_tag :email %>
+  <%= submit_tag "Add Friend" %>
 </section>
 
 <section class="viewing_parties">
