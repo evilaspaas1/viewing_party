@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 
   resources :viewing_party, only: [:new, :create]
 
+  resources :friendships, only: [:create]
 end
