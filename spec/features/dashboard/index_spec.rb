@@ -76,5 +76,10 @@ describe 'As a registered user' do
         expect(page).to have_content(@kiera.name)
       end
     end
+
+    it "can click on the Discover button and go to the discover page" do
+      click_button "Discover Movies"
+      expect(current_path).to eq("/discover")
+    end
   end
 end
