@@ -81,5 +81,29 @@ describe 'As a registered user' do
       click_button "Discover Movies"
       expect(current_path).to eq("/discover")
     end
+
+    it "can see the viewing parties I have been invited to including movie title, date/time of event, and invited status" do
+      harry_potter = Movie.create!({title: "Harry Potter and the Philosopher's Stone", duration: 152, api_id: 671})
+      hp_watch_party = ViewingParty.create!({user_id: @user.id, movie_id: harry_potter.id, date: 12-12-2020, start_time: '10:00:00', duration: 152, friend_ids: [@kiera.id, @austin.id]})
+
+        within("section.viewing_parties") do
+          expect(page).to have_content(harry_potter.title)
+          expect(page).to have_content(hp_watch_party.date)
+          expect(page).to have_content(hp_watch_party.start_time)
+          expect(page).to have_content("Invited")
+        end
+    end
+
+    it "can see the viewing parties I'm hosting including movie title, date/time of event, and hosting status" do
+      harry_potter = Movie.create!({title: "Harry Potter and the Philosopher's Stone", duration: 152, api_id: 671})
+      hp_watch_party = ViewingParty.create!({user_id: @kiera.id, movie_id: harry_potter.id, date: 12-12-2020, start_time: '10:00:00', duration: 152, friend_ids: [@user.id, @austin.id]})
+
+      within("section.viewing_parties") do
+        expect(page).to have_content(harry_potter.title)
+        expect(page).to have_content(hp_watch_party.date)
+        expect(page).to have_content(hp_watch_party.start_time)
+        expect(page).to have_content("Hosting")
+      end
+    end
   end
 end
