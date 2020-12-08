@@ -53,9 +53,7 @@ describe "As a user on the movies show page" do
       expect(page).to have_content("Tim Robbins")
     end
 
-
     expect(page).to have_css("#actor", :maximum => 10)
-
 
     within ".review_count" do
       expect(page).to have_content("6")
@@ -65,5 +63,15 @@ describe "As a user on the movies show page" do
       expect(page).to have_content("Author: elshaarawy")
       expect(page).to have_content("very good movie 9.5/10")
     end
+  end
+
+  it "creates a movie record in the database when I click create viewing party button" do
+    click_button "Create Viewing Party"
+
+    movie = Movie.last
+
+    expect(movie.title).to eq("The Shawshank Redemption")
+    expect(movie.duration).to eq(142)
+    expect(movie.api_id).to eq(278)
   end
 end
