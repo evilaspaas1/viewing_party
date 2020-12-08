@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_013335) do
+ActiveRecord::Schema.define(version: 2020_12_08_174121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,33 @@ ActiveRecord::Schema.define(version: 2020_12_06_013335) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
+  create_table "guests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "party_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["party_id"], name: "index_guests_on_party_id"
+    t.index ["user_id"], name: "index_guests_on_user_id"
+  end
+
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.integer "duration"
     t.integer "api_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "parties", force: :cascade do |t|
+    t.bigint "movie_id"
+    t.bigint "user_id"
+    t.integer "duration"
+    t.date "date"
+    t.time "start_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_parties_on_movie_id"
+    t.index ["user_id"], name: "index_parties_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,4 +62,8 @@ ActiveRecord::Schema.define(version: 2020_12_06_013335) do
   end
 
   add_foreign_key "friendships", "users"
+  add_foreign_key "guests", "parties"
+  add_foreign_key "guests", "users"
+  add_foreign_key "parties", "movies"
+  add_foreign_key "parties", "users"
 end
