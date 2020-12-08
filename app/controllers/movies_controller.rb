@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
 
     cast_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/credits?api_key=#{ENV['MOVIES_API_KEY']}")
     cast_json = JSON.parse(cast_data.body, symbolize_names: :true)
-    @cast = cast_json[:cast].first(10)
+    @cast = cast_json[:cast].first(10) #refactor to .take(10)? 
 
     review_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/reviews?api_key=#{ENV['MOVIES_API_KEY']}")
     review_json = JSON.parse(review_data.body, symbolize_names: :true)
