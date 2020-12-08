@@ -31,11 +31,11 @@ describe "As a user on the movies show page" do
   it "I see a button to create a viewing party and when I click that button I'm taken to a viewing party page" do
     click_button("Create Viewing Party")
 
-    expect(current_path).to eq("/viewing_party/new")
+    expect(current_path).to eq("/party/new")
   end
 
   it "I see information about this movie" do
-  
+
     expect(page).to have_content("The Shawshank Redemption")
 
     within ".movie_details" do
