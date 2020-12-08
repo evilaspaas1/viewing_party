@@ -32,7 +32,7 @@ describe 'As a registered user' do
       expect(page).to have_css("section.parties")
     end
 
-    it "has a text field to enter a friend's email and a button to addasd that friend" do
+    it "has a text field to enter a friend's email and a button to added that friend" do
       within("section.friends") do
         expect(page).to have_field(:email)
         expect(page).to have_button("Add Friend")
@@ -46,7 +46,6 @@ describe 'As a registered user' do
     end
 
     it "I can add a friend using their email as long as they exist in database" do
-
       within("section.friends") do
         fill_in :email, with: @shaunda.email
         click_button "Add Friend"
@@ -75,6 +74,22 @@ describe 'As a registered user' do
         expect(page).to have_content(@austin.name)
         expect(page).to have_content(@kiera.name)
       end
+    end
+
+    it "won't let me add friends I have already added" do
+      fill_in :email, with: @shaunda.email
+      click_button "Add Friend"
+
+      fill_in :email, with: @shaunda.email
+      click_button "Add Friend"
+      expect(page).to have_content("You have already added this friend")
+    end
+
+    it "won't let me add myself as a friend" do
+      fill_in :email, with: @user.email
+      click_button "Add Friend"
+
+      expect(page).to have_content("You can not add yourself as a friend")
     end
 
     it "can click on the Discover button and go to the discover page" do
