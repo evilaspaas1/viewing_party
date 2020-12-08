@@ -29,7 +29,7 @@ describe 'As a registered user' do
     end
 
     it "has a viewing parties section" do
-      expect(page).to have_css("section.viewing_parties") #rename to parties in view
+      expect(page).to have_css("section.parties")
     end
 
     it "has a text field to enter a friend's email and a button to addasd that friend" do
@@ -86,14 +86,16 @@ describe 'As a registered user' do
       current_date = DateTime.now.to_date.to_s
       current_time = DateTime.now.to_time.to_s[11..15]
       harry_potter = Movie.create!({title: "Harry Potter and the Philosopher's Stone", duration: 152, api_id: 671})
-      hp_watch_party = Party.create!({user_id: @user.id, movie_id: harry_potter.id, date: current_date, start_time: current_time, duration: 152 })
+      hp_watch_party = @user.parties.create!({movie_id: harry_potter.id, date: current_date, start_time: current_time, duration: 152 })
+      guest = @user.guests.create!({party_id: hp_watch_party.id})
+      visit dashboard_index_path
 
-        within("section.viewing_parties") do
-          expect(page).to have_content(harry_potter.title)
-          expect(page).to have_content(hp_watch_party.date)
-          expect(page).to have_content(hp_watch_party.start_time)
-          expect(page).to have_content("Invited")
-        end
+      within(".parties") do
+        expect(page).to have_content(harry_potter.title)
+        expect(page).to have_content(hp_watch_party.date)
+        expect(page).to have_content(hp_watch_party.start_time)
+        expect(page).to have_content("Hosting")
+      end
     end
 
     it "can see the viewing parties I'm hosting including movie title, date/time of event, and hosting status" do
@@ -101,12 +103,14 @@ describe 'As a registered user' do
       current_time = DateTime.now.to_time.to_s[11..15]
       harry_potter = Movie.create!({title: "Harry Potter and the Philosopher's Stone", duration: 152, api_id: 671})
       hp_watch_party = Party.create!({user_id: @kiera.id, movie_id: harry_potter.id, date: current_date, start_time: current_time, duration: 152 })
+      guest = @user.guests.create!({party_id: hp_watch_party.id})
+      visit dashboard_index_path
 
-      within("section.viewing_parties") do
+      within("section.parties") do
         expect(page).to have_content(harry_potter.title)
         expect(page).to have_content(hp_watch_party.date)
         expect(page).to have_content(hp_watch_party.start_time)
-        expect(page).to have_content("Hosting")
+        expect(page).to have_content("Invited")
       end
     end
   end
