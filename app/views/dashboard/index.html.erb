@@ -20,5 +20,16 @@
   <%= submit_tag "Add Friend" %>
 </section>
 
-<section class="viewing_parties">
+<section class="parties">
+  <h4>Your Viewing Parties</h4>
+  <% @parties.each do |party| %>
+    <p><%= party.movie[:title] %>
+    <%= party.date %>
+    <%= party.start_time %>
+    <% if @current_user.id == party.user_id %>
+      <p>Hosting</p>
+    <% else %>
+      <p>Invited</p>
+    <% end  %>
+  <% end %></p>
 </section>
