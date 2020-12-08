@@ -74,4 +74,14 @@ describe "As a user on the movies show page" do
     expect(movie.duration).to eq(142)
     expect(movie.api_id).to eq(278)
   end
+
+  it "won't create a movie thats in the database already" do
+    movie1 = Movie.create!({title: "The Shawshank Redemption", duration: 142, api_id: 278})
+    movie2 = Movie.create!({title: "Harry Potter and the Philosopher's Stone", duration: 152, api_id: 671})
+
+    click_button "Create Viewing Party"
+
+    last_movie = Movie.last
+    expect(last_movie.title).to eq(movie2.title)
+  end
 end
