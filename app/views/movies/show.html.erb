@@ -1,4 +1,4 @@
-<%= button_to "Create Viewing Party", "/party/new", method: :get %>
+<%= button_to "Create Viewing Party", "/party/new", method: :get, params: {title: @movie[:title], duration: @movie[:runtime], api_id: @movie[:id]} %>
 
 <div class="movie_details">
   <p>Voting Average: <%= @movie[:vote_average] %></p>
