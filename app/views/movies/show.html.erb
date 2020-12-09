@@ -1,16 +1,16 @@
-<%= button_to "Create Viewing Party", "/party/new", method: :get, params: {title: @movie[:title], duration: @movie[:runtime], api_id: @movie[:id]} %>
+<%= button_to "Create Viewing Party", "/party/new", method: :get, params: {title: @movie.title, duration: @movie.runtime, api_id: @movie.id} %>
 
 <div class="movie_details">
-  <p>Voting Average: <%= @movie[:vote_average] %></p>
-  <p>Runtime: <%= @movie[:runtime] %></p>
-  <p>Genre(s): <% @movie[:genres].each do |genre| %>
+  <p>Voting Average: <%= @movie.vote_average %></p>
+  <p>Runtime: <%= @movie.runtime %></p>
+  <p>Genre(s): <% @movie.genres.each do |genre| %>
     <%= genre[:name] %></p>
   <% end %>
 </div>
 
 <div class="movie_summary">
   <h4>Summary</h4>
-  <p><%= @movie[:overview] %></p>
+  <p><%= @movie.overview %></p>
 </div>
 
 <div class="cast">
