@@ -14,14 +14,8 @@ class MoviesController < ApplicationController
   def show
     movie_id = params[:id]
     @movie = MovieFacade.movie_data(movie_id)
-
-    cast_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/credits?api_key=#{ENV['MOVIES_API_KEY']}")
-    cast_json = JSON.parse(cast_data.body, symbolize_names: :true)
-    @cast = cast_json[:cast].first(10) #refactor to .take(10)?
-
-    review_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/reviews?api_key=#{ENV['MOVIES_API_KEY']}")
-    review_json = JSON.parse(review_data.body, symbolize_names: :true)
-    @total_results = review_json[:total_results]
-    @reviews = review_json[:results]
+    @cast = MovieFacade.cast_data(movie_id)
+    @reviews = MovieFacade.review_data(movie_id)
+    @total_results = MovieFacade.total_reviews(movie_id)
   end
 end
