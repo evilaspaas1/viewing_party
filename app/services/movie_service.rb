@@ -5,12 +5,32 @@ class MovieService
       req.params[:query] = search_term
     end
 
-    JSON.parse(results.body, symbolize_names: :true)
+    self.parse(results)
   end
 
+  def self.top_movies_by_pages(page_number)
+    results = conn.get("/3/movie/top_rated?") do |req|
+      req.params[:page] = page_number
+      req.params[:language] = "en-US"
+    end
+  end
 
+  def self.top_40_movies
+    top_20 = self.top_movies_by_pages(1)
+    second_20 = self.top_movies_by_pages(2)
+    parsed_top_20 = self.parse(top_20)
+    parsed_second_20= self.parse(second_20)
+    (parsed_top_20[:results] << parsed_second_20[:results]).flatten
+  end
 
+  def self.movie_data(movie_id)
+    results = conn.get("/3/movie/#{movie_id}")
+    self.parse(results)
+  end
 
+  def self.parse(results)
+    JSON.parse(results.body, symbolize_names: :true)
+  end
 
 private
 
