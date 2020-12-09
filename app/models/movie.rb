@@ -1,7 +1,6 @@
 class Movie < ApplicationRecord
-
-  validates_presence_of :title,
-                        :duration,
-                        :api_id
+  validates :title,
+            :duration,
+            :api_id, presence: true
   validates :api_id, uniqueness: true
 end
