@@ -16,7 +16,7 @@
 <div class="cast">
   <h4>Cast</h4>
   <% @cast.each do |actor| %>
-    <li id="actor"><%= actor[:name] %></li>
+    <li id="actor"><%= actor.name %></li>
     <% end %>
 </div>
 
@@ -26,7 +26,7 @@
 
 <div class="review_details">
   <% @reviews.each do |review| %>
-    <p>Author: <%= review[:author_details][:username] %></p>
-    <p><%= review[:content] %></p>
+    <p>Author: <%= review.username %></p>
+    <p><%= review.content %></p>
   <% end %>
 </div>
