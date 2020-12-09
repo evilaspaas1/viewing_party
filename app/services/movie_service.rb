@@ -4,7 +4,6 @@ class MovieService
     results = conn.get("/3/search/movie") do |req|
       req.params[:query] = search_term
     end
-
     self.parse(results)
   end
 
@@ -28,8 +27,14 @@ class MovieService
     self.parse(results)
   end
 
-  def self.parse(results)
-    JSON.parse(results.body, symbolize_names: :true)
+  def self.cast_data(movie_id)
+    results = conn.get("/3/movie/#{movie_id}/credits?")
+    self.parse(results)[:cast].take(10)
+  end
+
+  def self.review_data(movie_id)
+    results = conn.get("/3/movie/#{movie_id}/reviews?")
+    self.parse(results)
   end
 
 private
@@ -41,4 +46,7 @@ private
     end
   end
 
+  def self.parse(results)
+    JSON.parse(results.body, symbolize_names: :true)
+  end
 end
