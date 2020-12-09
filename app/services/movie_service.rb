@@ -1,5 +1,4 @@
 class MovieService
-
   def self.movies_by_search(search_term)
     results = conn.get("/3/search/movie") do |req|
       req.params[:query] = search_term
