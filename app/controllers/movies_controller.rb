@@ -1,12 +1,11 @@
 class MoviesController < ApplicationController
   def index
-    if params[:search] == ""
+    search_term = params[:search]
+    if search_term == ""
       flash[:error] = "Must provide a search query"
       redirect_to "/discover"
-    elsif params[:search]
-      movies_by_search = Faraday.get("https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIES_API_KEY']}&query=#{params[:search]}")
-      json = JSON.parse(movies_by_search.body, symbolize_names: :true)
-      @movies = json[:results]
+    elsif search_term
+      @movies = MovieFacade.movies_by_search(search_term)
     else
       top_20 = Faraday.get("https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIES_API_KEY']}&language=en-US&page=1")
       second_20 = Faraday.get("https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIES_API_KEY']}&language=en-US&page=2")
@@ -22,7 +21,7 @@ class MoviesController < ApplicationController
 
     cast_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/credits?api_key=#{ENV['MOVIES_API_KEY']}")
     cast_json = JSON.parse(cast_data.body, symbolize_names: :true)
-    @cast = cast_json[:cast].first(10) #refactor to .take(10)? 
+    @cast = cast_json[:cast].first(10) #refactor to .take(10)?
 
     review_data = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}/reviews?api_key=#{ENV['MOVIES_API_KEY']}")
     review_json = JSON.parse(review_data.body, symbolize_names: :true)
