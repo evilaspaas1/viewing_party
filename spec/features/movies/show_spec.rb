@@ -23,6 +23,11 @@ end
 
 describe "As a user on the movies show page" do
   before :each do
+    @user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
+    visit root_path
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_button "Log In"
     VCR.use_cassette('movie_details2') do
       visit "/movies/278"
     end
