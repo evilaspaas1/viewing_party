@@ -5,3 +5,4 @@ class Movie < ApplicationRecord
                         :api_id
   validates :api_id, uniqueness: true
 end
+ 
