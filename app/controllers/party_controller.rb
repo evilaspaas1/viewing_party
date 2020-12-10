@@ -19,10 +19,8 @@ class PartyController < ApplicationController
         end
       end
       redirect_to dashboard_index_path
-    elsif party.save
-      Guest.create!(party_id: party.id, user_id: current_user.id)
-      redirect_to dashboard_index_path
     else
+      @movie = Movie.find_by(id: params[:movie_id])
       flash[:notice] = party.errors.full_messages.to_sentence
       render :new
     end
