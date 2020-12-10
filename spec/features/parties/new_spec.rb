@@ -90,4 +90,27 @@ describe "As a registered user" do
       expect(page).to have_content("Date can't be blank, Start time can't be blank, and Duration is not a number")
     end
   end
+
+  describe 'as a user without friends' do
+    it 'lets me create a viewing party even though I have no friends' do
+      @user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
+      visit root_path
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
+      VCR.use_cassette("movie_details2") do
+        visit "/movies/278"
+      end
+      click_button "Create Viewing Party"
+      movie = Movie.last
+      within ".party_form" do
+        fill_in :duration, with: movie.duration
+        fill_in :date, with: "12-08-2020"
+        fill_in :start_time, with: "7:00"
+        click_button "Create Viewing Party"
+      end
+      expect(current_path).to eq(dashboard_index_path)
+      expect(page).to have_content("The Shawshank Redemption")
+    end
+  end
 end
