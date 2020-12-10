@@ -7,18 +7,18 @@ class MovieService
   end
 
   def self.top_movies_by_pages(page_number)
-    results = conn.get('/3/movie/top_rated?') do |req|
+    conn.get('/3/movie/top_rated?') do |req|
       req.params[:page] = page_number
       req.params[:language] = 'en-US'
     end
   end
 
   def self.top_40_movies
-    top_20 = top_movies_by_pages(1)
-    second_20 = top_movies_by_pages(2)
-    parsed_top_20 = parse(top_20)
-    parsed_second_20 = parse(second_20)
-    (parsed_top_20[:results] << parsed_second_20[:results]).flatten
+    top20 = top_movies_by_pages(1)
+    second20 = top_movies_by_pages(2)
+    parsed_top20 = parse(top20)
+    parsed_second20 = parse(second20)
+    (parsed_top20[:results] << parsed_second20[:results]).flatten
   end
 
   def self.movie_data(movie_id)
@@ -44,6 +44,6 @@ class MovieService
   end
 
   def self.parse(results)
-    JSON.parse(results.body, symbolize_names: :true)
+    JSON.parse(results.body, symbolize_names: true)
   end
 end
