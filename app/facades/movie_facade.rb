@@ -35,4 +35,16 @@ class MovieFacade
   def self.total_reviews(movie_id)
     review_data(movie_id).count
   end
+
+  def self.get_movie_image(movie_id)
+    image = MovieService.get_movie_image(movie_id)
+    MovieImage.new(image)
+  end
+
+  def self.trending_movies
+    movies = MovieService.trending_movies
+    movies.map do |movie|
+      MovieDetails.new(movie)
+    end
+  end
 end

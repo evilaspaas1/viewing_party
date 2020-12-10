@@ -6,8 +6,10 @@ class MoviesController < ApplicationController
       redirect_to '/discover'
     elsif search_term
       @movies = MovieFacade.movies_by_search(search_term)
+      @trending_movies = MovieFacade.trending_movies
     else
       @movies = MovieFacade.top_40_movies
+      @trending_movies = MovieFacade.trending_movies
     end
   end
 
@@ -17,5 +19,6 @@ class MoviesController < ApplicationController
     @cast = MovieFacade.cast_data(movie_id)
     @reviews = MovieFacade.review_data(movie_id)
     @total_results = MovieFacade.total_reviews(movie_id)
+    @movie_image = MovieFacade.get_movie_image(movie_id)
   end
 end

@@ -36,10 +36,20 @@ class MovieService
     parse(results)
   end
 
+  def self.get_movie_image(movie_id)
+    results = conn.get("/3/movie/#{movie_id}/images?")
+    parse(results)[:posters].first
+  end
+
+  def self.trending_movies
+    results = conn.get('/3/trending/movie/week?')
+    parse(results)[:results].take(5)
+  end
+
   def self.conn
     Faraday.new(url: 'https://api.themoviedb.org') do |f|
       f.params[:api_key] = ENV['MOVIES_API_KEY']
-      f.params[:include_adult] = "false"
+      f.params[:include_adult] = 'false'
     end
   end
 

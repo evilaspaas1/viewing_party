@@ -7,7 +7,9 @@ describe "As A registered user when I visit a movies show page" do
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
     click_button "Log In"
-    visit "/discover"
+    VCR.use_cassette('trending_movies') do
+      visit "/discover"
+    end
   end
 
   it "I am taken to the movies show page when i click on a movie title" do
@@ -44,6 +46,7 @@ describe "As a user on the movies show page" do
     expect(page).to have_content("The Shawshank Redemption")
 
     within ".movie_details" do
+      expect(page).to have_xpath("//img[contains(@src,'https://image.tmdb.org/t/p/w600_and_h900_bestv2/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg')]")
       expect(page).to have_content("8.7")
       expect(page).to have_content("142")
       expect(page).to have_content("Drama")

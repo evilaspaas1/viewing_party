@@ -1,6 +1,14 @@
 <%= content_tag :h1, "Discover Your Next Watch"  %>
 <%= button_to "Find Top Rated Movies", "/movies", method: :get %>
-
+<br/>
 <%= form_tag "/movies", method: :get %>
   <%= search_field_tag(:search, params[:search]) %>
 <%= submit_tag ("Search By Title") %>
+
+<h2>Trending Movies of the Week</h2>
+<section class="trending_movies">
+<% @trending_movies.each do |movie|  %>
+  <%= link_to movie.title, "/movies/#{movie.id}" %>
+  <p>Vote Average: <%= movie.vote_average %></p>
+<% end %>
+</section>

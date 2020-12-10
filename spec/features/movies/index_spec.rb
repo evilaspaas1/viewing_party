@@ -7,7 +7,9 @@ describe 'as a registered user on the movies index page' do
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
     click_button "Log In"
-    visit "/discover"
+    VCR.use_cassette('trending_movies') do
+      visit "/discover"
+    end
   end
 
   it 'only lists 40 results or less when we search by title' do
