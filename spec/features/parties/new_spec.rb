@@ -77,7 +77,7 @@ describe "As a registered user" do
       end
     end
 
-    it "text" do
+    it "if I don't add information into the new party form, I see an error message" do
       movie = Movie.last
       within ".party_form" do
         fill_in :duration, with: ""

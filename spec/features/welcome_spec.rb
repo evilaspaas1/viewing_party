@@ -53,7 +53,7 @@ describe "As a visitor" do
       expect(page).to have_content("The page you were looking for doesn't exist")
     end
 
-    it "text" do
+    it "if I try to log in while I'm already logged in I see an error message" do
       user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
       visit root_path
 
