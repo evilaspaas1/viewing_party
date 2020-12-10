@@ -6,8 +6,10 @@ class MoviesController < ApplicationController
       redirect_to '/discover'
     elsif search_term
       @movies = MovieFacade.movies_by_search(search_term)
+      @trending_movies = MovieFacade.trending_movies
     else
       @movies = MovieFacade.top_40_movies
+      @trending_movies = MovieFacade.trending_movies
     end
   end
 
