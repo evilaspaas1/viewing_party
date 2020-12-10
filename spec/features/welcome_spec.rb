@@ -52,5 +52,24 @@ describe "As a visitor" do
       expect(current_path).to eq(dashboard_index_path)
       expect(page).to have_content("The page you were looking for doesn't exist")
     end
+
+    it "text" do
+      user = User.create!(name: "Tim", email: "tim@gmail.com", password: "test")
+      visit root_path
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+
+      click_button "Log In"
+
+      visit root_path
+
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
+
+      click_button "Log In"
+
+      expect(page).to have_content("You are already logged in!")
+    end
   end
 end
