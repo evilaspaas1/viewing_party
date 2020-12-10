@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   has_secure_password
-  validates_presence_of :name,
-                        :email
-  validates_presence_of :password, if: :password
+  validates :name,
+            :email, presence: true
+  validates :password, presence: { if: :password }
   validates :email, uniqueness: true
 
-  has_many :friendships
+  has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
-  has_many :guests
-  has_many :parties
+  has_many :guests, dependent: :destroy
+  has_many :parties, dependent: :destroy
 end

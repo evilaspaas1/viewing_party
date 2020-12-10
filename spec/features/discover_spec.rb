@@ -10,7 +10,7 @@ describe 'as a registered user on the discover page' do
   end
 
   it 'when the button is clicked it takes us to the movies page' do
-    VCR.use_cassette('top_movies') do
+    VCR.use_cassette('top_movies', :record => :new_episodes) do
       click_button("Find Top Rated Movies")
       expect(current_path).to eq("/movies")
     end
@@ -22,7 +22,7 @@ describe 'as a registered user on the discover page' do
   end
 
   it 'when the button to find movies is clicked it takes us to the movies page' do
-    VCR.use_cassette('movies_by_search') do
+    VCR.use_cassette('movies_by_search', :record => :new_episodes) do
       fill_in :search, with: "Phoenix"
       click_button("Search By Title")
       expect(current_path).to eq("/movies")
@@ -37,7 +37,7 @@ describe 'as a registered user on the discover page' do
   end
 
   it 'can search for movies in any case' do
-    VCR.use_cassette('case_sensitive_search') do
+    VCR.use_cassette('case_sensitive_search', :record => :new_episodes) do
       fill_in :search, with: "pHoEnix"
       click_button("Search By Title")
       expect(current_path).to eq("/movies")
@@ -45,7 +45,7 @@ describe 'as a registered user on the discover page' do
   end
 
   it 'can search for partial keyword/movie title' do
-    VCR.use_cassette('partial_results') do
+    VCR.use_cassette('partial_results', :record => :new_episodes) do
       fill_in :search, with: "Pho"
       click_button("Search By Title")
       expect(current_path).to eq("/movies")
