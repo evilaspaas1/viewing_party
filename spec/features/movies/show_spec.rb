@@ -16,6 +16,7 @@ describe "As A registered user when I visit a movies show page" do
       VCR.use_cassette('movie_details2', :record => :new_episodes) do
         click_link "The Shawshank Redemption"
         expect(current_path).to eq("/movies/278")
+        save_and_open_page
       end
     end
   end
@@ -44,6 +45,7 @@ describe "As a user on the movies show page" do
     expect(page).to have_content("The Shawshank Redemption")
 
     within ".movie_details" do
+      expect(page).to have_xpath("//img[contains(@src,'https://image.tmdb.org/t/p/w600_and_h900_bestv2/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg')]")
       expect(page).to have_content("8.7")
       expect(page).to have_content("142")
       expect(page).to have_content("Drama")

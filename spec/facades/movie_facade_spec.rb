@@ -48,4 +48,13 @@ describe "Movie Facade" do
       expect(review.first).to be_an_instance_of(Review)
     end
   end
+
+  it "returns a movie image object" do
+    VCR.use_cassette('movie-details2') do
+      image = MovieFacade.get_movie_image(278)
+
+      expect(image.image).to be_a String
+      expect(image).to be_an_instance_of(MovieImage)
+    end
+  end
 end

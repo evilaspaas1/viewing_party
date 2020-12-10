@@ -87,5 +87,17 @@ describe MovieService do
         expect(review[:content]).to be_a(String)
       end
     end
+
+    context "#get_movie_image" do
+      it "returns images for a movie" do
+        VCR.use_cassette("movie_details2") do
+          @search = MovieService.get_movie_image(278)
+        end
+
+        expect(@search).to be_a Hash
+        image = @search[:file_path]
+        expect(image).to be_a(String)
+      end
+    end
   end
 end
