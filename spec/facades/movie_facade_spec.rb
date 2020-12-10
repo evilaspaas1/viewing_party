@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe "Movie Facade" do
   it "returns a list of searched movies objects" do
-    VCR.use_cassette('movies_by_search') do
+    VCR.use_cassette('movies_by_search', :record => :new_episodes) do
       movies = MovieFacade.movies_by_search("Phoenix")
 
       expect(movies).to be_an(Array)
@@ -12,7 +12,7 @@ describe "Movie Facade" do
   end
 
   it "returns top movie objects" do
-    VCR.use_cassette('top_movies') do
+    VCR.use_cassette('top_movies', :record => :new_episodes) do
       movies = MovieFacade.top_40_movies
 
       expect(movies).to be_an(Array)

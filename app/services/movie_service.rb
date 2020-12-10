@@ -39,7 +39,7 @@ class MovieService
   def self.conn
     Faraday.new(url: 'https://api.themoviedb.org') do |f|
       f.params[:api_key] = ENV['MOVIES_API_KEY']
-      # f.headers["include_adult"] = "false"
+      f.params[:include_adult] = "false"
     end
   end
 
