@@ -99,5 +99,20 @@ describe MovieService do
         expect(image).to be_a(String)
       end
     end
+
+    context "#trending_movies" do
+      it "returns the trending movies for the week" do
+        VCR.use_cassette('trending_movies') do
+          @search = MovieService.trending_movies
+        end
+
+        expect(@search).to be_an Array
+        movie = @search.first
+        expect(movie).to have_key :title
+        expect(movie[:title]).to be_a(String)
+        expect(movie).to have_key :vote_average
+        expect(movie[:vote_average]).to be_a(Float)
+      end
+    end
   end
 end
