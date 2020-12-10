@@ -93,7 +93,9 @@ describe 'As a registered user' do
     end
 
     it "can click on the Discover button and go to the discover page" do
-      click_button "Discover Movies"
+      VCR.use_cassette('trending_movies') do
+        click_button "Discover Movies"
+      end
       expect(current_path).to eq("/discover")
     end
 

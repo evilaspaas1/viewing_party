@@ -7,7 +7,9 @@ describe "As A registered user when I visit a movies show page" do
     fill_in :email, with: @user.email
     fill_in :password, with: @user.password
     click_button "Log In"
-    visit "/discover"
+    VCR.use_cassette('trending_movies') do
+      visit "/discover"
+    end
   end
 
   it "I am taken to the movies show page when i click on a movie title" do
@@ -16,7 +18,6 @@ describe "As A registered user when I visit a movies show page" do
       VCR.use_cassette('movie_details2', :record => :new_episodes) do
         click_link "The Shawshank Redemption"
         expect(current_path).to eq("/movies/278")
-        save_and_open_page
       end
     end
   end
