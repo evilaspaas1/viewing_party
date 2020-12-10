@@ -1,5 +1,4 @@
 class MovieFacade
-
   def self.movies_by_search(search_term)
     movies = MovieService.movies_by_search(search_term)
     movies[:results].map do |movie|
@@ -34,6 +33,6 @@ class MovieFacade
   end
 
   def self.total_reviews(movie_id)
-    self.review_data(movie_id).count
+    review_data(movie_id).count
   end
 end

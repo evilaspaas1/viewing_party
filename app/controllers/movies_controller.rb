@@ -1,9 +1,9 @@
 class MoviesController < ApplicationController
   def index
     search_term = params[:search]
-    if search_term == ""
-      flash[:error] = "Must provide a search query"
-      redirect_to "/discover"
+    if search_term == ''
+      flash[:error] = 'Must provide a search query'
+      redirect_to '/discover'
     elsif search_term
       @movies = MovieFacade.movies_by_search(search_term)
     else
