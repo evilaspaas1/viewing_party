@@ -1,4 +1,5 @@
 class MovieFacade
+
   def self.movies_by_search(search_term)
     movies = MovieService.movies_by_search(search_term)
     movies[:results].map do |movie|

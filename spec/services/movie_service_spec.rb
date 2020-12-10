@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 describe MovieService do
   context "instance methods" do
     context "#movies_by_search" do
@@ -10,47 +9,35 @@ describe MovieService do
         expect(@search).to be_a Hash
         expect(@search[:results]).to be_an Array
         expect(@search.count).to be_between(1, 40)
-
         movie = @search[:results].first
         expect(movie).to have_key :title
         expect(movie[:title]).to be_a(String)
-
         expect(movie).to have_key :id
         expect(movie[:id]).to be_a(Integer)
-
         expect(movie).to have_key :vote_average
         expect(movie[:vote_average]).to be_a(Float)
-
         expect(movie).to have_key :overview
         expect(movie[:overview]).to be_a(String)
       end
     end
-
     context "#top_40_movies" do
       it "returns top 40 movies" do
         VCR.use_cassette("top_movies") do
           @search = MovieService.top_40_movies
         end
-
         expect(@search).to be_an Array
         expect(@search.count).to be_between(1, 40)
-
         movie = @search.first
         expect(movie).to have_key :title
         expect(movie[:title]).to be_a(String)
-
         expect(movie).to have_key :id
         expect(movie[:id]).to be_a(Integer)
-
         expect(movie).to have_key :vote_average
         expect(movie[:vote_average]).to be_a(Float)
-
         expect(movie).to have_key :overview
         expect(movie[:overview]).to be_a(String)
-
       end
     end
-
     context "#movie_data" do
       it "returns data specific to a single movie" do
         VCR.use_cassette("movie_details2") do
@@ -73,7 +60,6 @@ describe MovieService do
         expect(movie[:overview]).to be_a(String)
       end
     end
-
     context "#cast_data" do
       it "returns all cast members for a movie" do
         VCR.use_cassette("movie_details2") do
@@ -87,7 +73,6 @@ describe MovieService do
         expect(actor[:name]).to be_a(String)
       end
     end
-
     context "#review_data" do
       it "returns all reviews for a movie" do
         VCR.use_cassette("movie_details2") do
