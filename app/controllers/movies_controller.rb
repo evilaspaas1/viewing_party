@@ -17,5 +17,6 @@ class MoviesController < ApplicationController
     @cast = MovieFacade.cast_data(movie_id)
     @reviews = MovieFacade.review_data(movie_id)
     @total_results = MovieFacade.total_reviews(movie_id)
+    @movie_image = MovieFacade.get_movie_image(movie_id)
   end
 end
