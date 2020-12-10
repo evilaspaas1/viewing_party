@@ -1,6 +1,7 @@
+<h2><%= @movie.title %></h2>
 <%= button_to "Create Viewing Party", "/party/new", method: :get, params: {title: @movie.title, duration: @movie.runtime, api_id: @movie.id} %>
-
 <div class="movie_details">
+  <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2<%= @movie_image.image %>" width="200" height="300">
   <p>Voting Average: <%= @movie.vote_average %></p>
   <p>Runtime: <%= @movie.runtime %></p>
   <p>Genre(s): <% @movie.genres.each do |genre| %>
