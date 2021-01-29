@@ -33,7 +33,7 @@ describe MovieService do
         expect(movie).to have_key :id
         expect(movie[:id]).to be_a(Integer)
         expect(movie).to have_key :vote_average
-        expect(movie[:vote_average]).to be_a(Float)
+        expect(movie[:vote_average]).to be_a(Float).or be_a(Integer)
         expect(movie).to have_key :overview
         expect(movie[:overview]).to be_a(String)
       end
